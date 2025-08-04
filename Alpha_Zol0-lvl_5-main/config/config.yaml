@@ -1,0 +1,8 @@
+# ZoL0 LEVEL 0
+symbol: BTCUSDT
+timeframe: 1
+sl_pct: 0.5
+tp_pct: 1.0
+# API keys are now loaded from environment variables (see secrets.env)
+api_key: "${BYBIT_API_KEY}"
+api_secret: "${BYBIT_API_SECRET}"

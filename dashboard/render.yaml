@@ -1,0 +1,13 @@
+---
+# render.yaml – Deployment config for frontend (dashboard)
+services:
+  - name: zol0-dashboard
+    type: web
+    runtime: static
+    rootDir: .
+    buildCommand: npm install && npm run build
+    envVars:
+      - key: VITE_API_URL
+        value: https://twoj-backend.onrender.com  # <- tu podaj adres backendu
+    plan: free
+    region: singapore

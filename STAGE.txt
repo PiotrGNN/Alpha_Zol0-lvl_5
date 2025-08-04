@@ -1,0 +1,3 @@
+
+STAGE: AI Monitoring & Optymalizacje (2025-07-31)
+Taski w toku: system_monitoring_init, lazy_init, logic_guard, data_reduction, resource_alerting, sanity_benchmark

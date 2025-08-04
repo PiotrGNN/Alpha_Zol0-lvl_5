@@ -1,0 +1,166 @@
+
+# blueprint.yaml – Projekt ZoL0: Struktura, zależności, Render Free Plan
+
+project:
+  name: ZoL0 AI Trading Bot
+  description: >
+    Zaawansowany bot tradingowy z AI, backtestingiem, zarządzaniem ryzykiem i modularną architekturą.
+  entrypoint: main.py
+  requirements: requirements.txt
+  environment: python 3.10+
+
+folders:
+  core:
+    - MarketDataFetcher.py
+    - OrderExecutor.py
+    - AIStrategyEngine.py
+    - PositionManager.py
+    - RiskManager.py
+    - StrategyPerformanceTracker.py
+  models:
+    - trend_predictor.py
+    - volatility_forecaster.py
+    - ai_utils.py
+    - tp_sl_optimizer.py
+    - time_advantage.py
+    - anti_pattern_guard.py
+    - portfolio_optimizer.py
+  strategies:
+    - SmaCrossStrategy.py
+    - DynamicStrategyRouter.py
+    - arbitrage.py
+    - breakout.py
+    - momentum.py
+    - mean_reversion.py
+    - trend_following.py
+    - UniversalStrategy.py
+    - base.py
+  utils:
+    - logger.py
+    - config_loader.py
+    - backtesting.py
+    - health_check.py
+  config:
+    - config.yaml
+    - level5.py
+  tests:
+    - test_marketdata_fetcher.py
+    - test_strategy_engine.py
+    - test_risk_manager.py
+    - test_backtester.py
+    - test_ai_model_logic.py
+    - test_profit_layers.py
+    - test_strategytracker_ext.py
+    - test_order_executor.py
+    - test_strategy_integration.py
+    - test_riskmanager_rolling.py
+  security:
+    - zero_trust.py
+  logs: []
+
+dependencies:
+  - pandas
+  - numpy
+  - scikit-learn
+  - joblib
+  - requests
+  - pytest
+  - ruff
+  - flake8
+
+run:
+  build: pip install -r requirements.txt
+  start: python main.py
+
+
+render:
+  services:
+    - name: zol0-backend
+      type: web
+      plan: free
+      buildCommand: pip install -r requirements.txt
+      startCommand: bash start.sh  # lub "python main.py"
+      autoDeploy: true
+      envVars:
+        - fromGroup: zol0-secrets
+      healthCheckPath: /health
+      region: singapore
+
+    - name: zol0-dashboard
+      type: web
+      env: node
+      rootDir: dashboard/
+      buildCommand: npm install
+      startCommand: node server.js
+      autoDeploy: true
+      plan: free
+      region: frankfurt
+      envVars:
+        - key: VITE_API_URL
+          value: https://zol0-backend.onrender.com
+
+    # --- Wariant 2: Statyczny build React/Vite SPA (zalecane dla typowego frontendu) ---
+    # - name: zol0-dashboard-static
+    #   type: web
+    #   env: static
+    #   plan: free
+    #   region: singapore
+    #   rootDir: dashboard/
+    #   buildCommand: npm install && npm run build
+    #   staticPublishPath: build/
+    #   autoDeploy: true
+    #   envVars:
+    #     - key: VITE_API_URL
+    #       value: https://zol0-backend.onrender.com
+  envVarGroups:
+    - name: zol0-secrets
+      envVars:
+        - key: BYBIT_API_KEY
+          sync: false
+        - key: BYBIT_SECRET_KEY
+          sync: false
+        - key: ENVIRONMENT
+          value: production
+        - key: MODEL_VERSION
+          value: v1.0.0
+  # Możesz dodać sekcję volumes, jeśli Render YAML ją obsługuje
+  # volumes:
+  #   - name: zol0-logs
+  #     mountPath: /mnt/logs
+  #     sizeGB: 1
+docker:
+  file: Dockerfile (opcjonalnie)
+
+notes:
+
+  - Plik render.yaml konfiguruje deployment na Render.com
+  - Plik Dockerfile umożliwia własny build (opcjonalnie)
+  - Zmienne środowiskowe przechowuj w secrets.env lub przez panel Render
+  - Free Plan: 750h/miesiąc, automatyczne usypianie, ograniczone zasoby
+
+fl:
+  - training.py            # level: 5
+  - runner.py              # level: 5
+autopsy:
+  - decision_log.csv       # Deployment
+  - .sig                   # Deployment
+root_files:
+  - start.sh               # level: 0
+  - main.py                # level: 0
+  - Dockerfile             # Deployment
+  - secrets.env            # Deployment
+  - render.yaml            # Deployment
+  - README.md              # Deployment
+  - DEVELOPMENT.md         # Deployment
+  - TODO.md                # Deployment
+  - copilot_taskplan.yaml  # Deployment
+  - blueprint.yaml         # Deployment
+  - STAGE.txt              # Deployment
+  - ZoL0-Level-0-5.md      # Deployment
+  - LEVEL0.md              # Deployment
+  - LEVEL1.md              # Deployment
+  - LEVEL2.md              # Deployment
+  - LEVEL3.md              # Deployment
+  - LEVEL4.md              # Deployment
+  - LEVEL5.md              # Deployment
+# End of blueprint.yaml

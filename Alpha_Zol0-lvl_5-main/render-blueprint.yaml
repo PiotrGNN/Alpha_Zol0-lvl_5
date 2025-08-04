@@ -1,0 +1,36 @@
+# Render.com Deployment Blueprint for ZoL0
+
+services:
+  - type: web
+    name: zol0-backend-api
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile.api
+    buildCommand: ''
+    startCommand: ''
+    envVars:
+      - key: PORT
+        value: 10000
+    healthCheckPath: /
+
+  - type: worker
+    name: zol0-bot-worker
+    env: docker
+    plan: starter # (lub wyższy, Free nie obsługuje workerów)
+    dockerfilePath: Dockerfile.worker
+    buildCommand: ''
+    startCommand: ''
+    envVars: []
+
+  - type: web
+    name: zol0-dashboard
+    env: static
+    buildCommand: cd dashboard && npm install && npm run build
+    staticPublishPath: dashboard/dist
+    plan: free
+
+# Uwaga:
+# - Ustaw odpowiednie sekrety/API keys w sekcji envVars jeśli są wymagane.
+# - Zmień nazwy serwisów według uznania.
+# - dashboard: dostosuj buildCommand/staticPublishPath do swojego frontendu.
+# - worker: plan starter lub wyższy (płatny), web (API/dashboard) mogą być na Free.

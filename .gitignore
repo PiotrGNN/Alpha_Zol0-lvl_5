@@ -1,0 +1,28 @@
+# Python cache and temp
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and temp files
+*.log
+*.csv
+*.env
+*.sig
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Secrets
+secrets.env
+
+# Jupyter and notebook
+.ipynb_checkpoints/
+
+# Autopsy temp
+# autopsy/*.sig
+
+# Other
+*.swp
+*.bak

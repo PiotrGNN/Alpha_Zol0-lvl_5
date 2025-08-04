@@ -1,0 +1,216 @@
+---
+# Sugerowane zadania (2025-07-28)
+tasks:
+  - id: arch-diagram
+    desc: Dodaj diagram architektury do README
+    hints: Możesz użyć ASCII lub narzędzi online
+    priority: high
+    file: README.md
+    function: n/a
+    status: done
+  - id: install-section
+    desc: Rozszerz sekcję instalacji o pip, Docker, ENV
+    hints: Dodaj przykłady poleceń
+    priority: medium
+    file: README.md
+    function: n/a
+    status: done
+  - id: ai-desc-readme
+    desc: Dodaj opis AI decyzji i egzekucji w README
+    hints: Opisz flow danych i logikę
+    priority: high
+    file: README.md
+    function: n/a
+    status: done
+  - id: links-readme
+    desc: Dodaj linki do ZoL0-Level-0-5.md, copilot_taskplan.yaml
+    hints: Ułatw nawigację po repo
+    priority: low
+    file: README.md
+    function: n/a
+    status: done
+  - id: checklist-status
+    desc: Dodaj status przy każdym LEVELU w checklistach
+    hints: Użyj done/partial/todo
+    priority: medium
+    file: TODO.md, ZoL0-Level-0-5.md
+    function: n/a
+    status: done
+  - id: checklist-sync
+    desc: Zsynchronizuj checklisty z copilot_taskplan.yaml (ID zadań)
+    hints: Użyj identyfikatorów
+    priority: medium
+    file: TODO.md, copilot_taskplan.yaml
+    function: n/a
+    status: done
+  - id: todo-links
+    desc: Dodaj linki do plików w TODO.md (np. core/OrderExecutor.py)
+    hints: Ułatw szybkie przejście do kodu
+    priority: low
+    file: TODO.md
+    function: n/a
+    status: done
+  - id: ci-progress
+    desc: Dodaj progress.json lub YAML do CI/CD
+    hints: Automatyzacja statusu
+    priority: medium
+    file: progress.yaml
+    function: n/a
+    status: done
+  - id: botcore-refactor
+    desc: Wyodrębnij logikę z main.py do core/BotCore.py
+    hints: Przenieś logikę startu i obsługi bota
+    priority: high
+    status: done
+  - id: main-error-log
+    desc: Dodaj obsługę błędów i logowanie wyjątków w main.py
+    hints: Użyj try/except i loggera
+    priority: high
+    status: done
+  - id: orderexecutor-rest
+    desc: Rozbuduj OrderExecutor o REST + retry + throttle (Bybit)
+    hints: Dodaj obsługę API i limitów
+    priority: high
+    status: done
+  - id: riskmanager-opt
+    desc: Zoptymalizuj RiskManager – rolling drawdown, logi, AI tuning
+    hints: Użyj historii PnL i AI
+    priority: high
+    status: done
+  - id: strategytracker-ext
+    desc: Rozszerz StrategyPerformanceTracker o DD, score, hitrate
+    hints: Dodaj nowe metryki
+    priority: medium
+    status: done
+
+# copilot_taskplan.yaml – Plan zadań dla GitHub Copilot
+# Wytyczna: Każda zmiana musi zachować lub przyspieszyć działanie systemu decyzyjnego bota.
+
+new_tasks:
+  - id: system_monitoring_init
+    desc: Monitoring zasobów – 100% pasywny
+    file: utils/system_monitor.py
+    status: todo
+  - id: lazy_init
+    desc: Lazy Initialization – AI/ML components
+    file: ai/*
+    status: todo
+  - id: data_reduction
+    desc: Redukcja danych poza pętlą decyzji
+    file: utils/backtesting.py
+    status: todo
+  - id: resource_alerting
+    desc: Resource alerting – tylko logi
+    file: utils/system_monitor.py
+    status: todo
+  - id: sanity_benchmark
+    desc: Testy sanity + benchmark
+    file: tests/test_resource_usage.py
+    status: todo
+  - id: logic_guard
+    desc: Zabezpieczenia logiczne
+    file: core/BotCore.py, core/AIStrategyEngine.py
+    status: todo
+
+file_task_map:
+  main.py:
+    - system_monitoring_init
+  utils/system_monitor.py:
+    - system_monitoring_init
+    - resource_alerting
+  ai/*:
+    - lazy_init
+  core/BotCore.py:
+    - logic_guard
+  core/AIStrategyEngine.py:
+    - logic_guard
+  utils/backtesting.py:
+    - data_reduction
+  tests/test_resource_usage.py:
+    - sanity_benchmark
+
+task_tags:
+  - '# [TASK-ID: system_monitoring_init]'
+  - '# [TASK-ID: lazy_init]'
+  - '# [TASK-ID: data_reduction]'
+  - '# [TASK-ID: resource_alerting]'
+  - '# [TASK-ID: logic_guard]'
+  - '@no_slow_path'
+  - '# ⚠️ UWAGA: poniższa pętla jest krytyczna dla czasu decyzji – żadnych operacji I/O, sleep, ani monitoringu!'
+
+levels:
+  - level: 0
+    name: Fundamenty i struktura
+    task_ids:
+      - arch-diagram
+      - install-section
+      - config-section
+      - marketdatafetcher
+      - orderexecutor-mock
+      - logger
+      - config-loader
+      - test-marketdatafetcher
+      - commit-lvl0
+  - level: 1
+    name: Prosta strategia i egzekucja
+    task_ids:
+      - smacross
+      - aistrategyengine
+      - positionmanager
+      - orderexecutor-bybit
+      - test-strategyengine
+      - commit-lvl1
+  - level: 2
+    name: Risk i backtesting
+    task_ids:
+      - riskmanager-opt
+      - ci-progress
+  - level: 3
+    name: "AI: klasyfikacja i ML"
+    task_ids:
+      - ai-desc-readme
+  - level: 4
+    name: Meta-strategie i optymalizacja
+    task_ids:
+      - strategytracker-ext
+  - level: 5
+    name: ZTA, FL i system zysków
+    task_ids:
+      - checklist-status
+      - checklist-sync
+  - level: 6
+    name: Deployment & DevOps
+    task_ids:
+      - ci-progress
+      - links-readme
+---
+tasks:
+  - id: arch-diagram
+    desc: Dodaj diagram architektury do README
+    status: done
+  - id: install-section
+    desc: Rozszerz sekcję instalacji o pip, Docker, ENV
+    status: done
+  - id: ai-desc-readme
+    desc: Dodaj opis AI decyzji i egzekucji w README
+    priority: high
+    file: README.md
+    function: n/a
+    status: done
+  - id: links-readme
+    desc: Dodaj linki do ZoL0-Level-0-5.md, copilot_taskplan.yaml
+    hints: Ułatw nawigację po repo
+    priority: low
+    file: README.md
+    function: n/a
+    status: done
+  - id: checklist-status
+    desc: Dodaj status przy każdym LEVELU w checklistach
+    hints: Użyj done/partial/todo
+    priority: medium
+    file: TODO.md, ZoL0-Level-0-5.md
+    function: n/a
+    status: done
+  - id: checklist-sync
+    desc: Zsynchronizuj checklisty z copilot_taskplan.yaml (ID zadań)
+    status: done

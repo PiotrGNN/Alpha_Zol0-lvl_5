@@ -1,0 +1,18 @@
+# Wymagane do obsługi bazy Postgres
+psycopg2-binary
+# Wymagane do obsługi bazy Postgres
+sqlalchemy
+fastapi
+pandas
+numpy
+scikit-learn
+joblib
+requests
+pytest
+ruff
+flake8
+uvicorn
+torch
+xgboost
+openai
+pyyaml
